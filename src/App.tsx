@@ -1,9 +1,16 @@
+import { Dashboard } from "./components/Dashboard/Dashboard";
+import { Header } from "./components/Header/Header";
+
 export default function App() {
   return (
     <>
-      <div className="bg-teal-800">
-        <h1>Hello world!</h1>
-      </div>
+      <main className="bg-[#ECF0F1] h-screen">
+        <Header />
+        <section className="flex">
+          <Dashboard />
+          <h2>Content</h2>
+        </section>
+      </main>
     </>
   );
 }
