@@ -1,3 +1,4 @@
+import { Content } from "./components/Content/Content";
 import { Dashboard } from "./components/Dashboard/Dashboard";
 import { Header } from "./components/Header/Header";
 
@@ -8,7 +9,7 @@ export default function App() {
         <Header />
         <section className="flex">
           <Dashboard />
-          <h2>Content</h2>
+          <Content />
         </section>
       </main>
     </>
