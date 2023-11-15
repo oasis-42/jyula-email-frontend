@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import MonacoEditor from "../components/MonacoEditor";
+import MonacoEditor from "../components/templatesComponents/MonacoEditor";
 
 function NewTemplate() {
   return (
