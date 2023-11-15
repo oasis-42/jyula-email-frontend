@@ -1,9 +1,10 @@
+import Layout from "./layouts/Layout";
+import NewTemplate from "./pages/novo-template";
+
 export default function App() {
   return (
-    <>
-      <div className="bg-teal-800">
-        <h1>Hello world!</h1>
-      </div>
-    </>
+    <Layout>
+      <NewTemplate />
+    </Layout>
   );
 }
