@@ -14,13 +14,13 @@ export default function App() {
     <Router>
       <Layout>
         <Routes>
-          <Route path="/criar-campanha" element={<CriarCampanha/>} />
-          <Route path="/criar-templates" element={<NewTemplate/>} />
-          <Route path="/segmentos" element={<Segmentos/>} />
-          <Route path="/audiencia" element={<Audiencia/>} />
-          <Route path="/enviados" element={<Enviados/>} />
-          <Route path="/favoritos" element={<Favoritos/>} />
-          <Route path="/relatorios" element={<Relatorios/>} />
+          <Route path="/criar-campanha" element={<CriarCampanha />} />
+          <Route path="/criar-templates" element={<NewTemplate />} />
+          <Route path="/segmentos" element={<Segmentos />} />
+          <Route path="/audiencia" element={<Audiencia />} />
+          <Route path="/enviados" element={<Enviados />} />
+          <Route path="/favoritos" element={<Favoritos />} />
+          <Route path="/relatorios" element={<Relatorios />} />
         </Routes>
       </Layout>
     </Router>
