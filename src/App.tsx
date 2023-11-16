@@ -1,26 +1,26 @@
 
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Layout from "./layouts/Layout";
-import NewTemplate from "./pages/Criar-templates";
-import CriarCampanha from "./pages/Criar-campanha";
-import Segmentos from "./pages/Segmentos";
-import Audiencia from "./pages/Audiencia";
-import Enviados from "./pages/Enviados";
-import Favoritos from "./pages/Favoritos";
-import Relatorios from "./pages/Relatorios";
+import CreateTemplates from "./pages/createTemplates";
+import CreateCampaign from "./pages/createCampaign";
+import Segments from "./pages/segments";
+import Audience from "./pages/audiences";
+import Sent from "./pages/sent";
+import Favorites from "./pages/favorites";
+import Reports from "./pages/reports";
 
 export default function App() {
   return (
     <Router>
       <Layout>
         <Routes>
-          <Route path="/criar-campanha" element={<CriarCampanha/>} />
-          <Route path="/criar-templates" element={<NewTemplate/>} />
-          <Route path="/segmentos" element={<Segmentos/>} />
-          <Route path="/audiencia" element={<Audiencia/>} />
-          <Route path="/enviados" element={<Enviados/>} />
-          <Route path="/favoritos" element={<Favoritos/>} />
-          <Route path="/relatorios" element={<Relatorios/>} />
+          <Route path="/criar-campanha" element={<CreateCampaign/>} />
+          <Route path="/criar-templates" element={<CreateTemplates/>} />
+          <Route path="/segmentos" element={<Segments/>} />
+          <Route path="/audiencia" element={<Audience/>} />
+          <Route path="/enviados" element={<Sent/>} />
+          <Route path="/favoritos" element={<Favorites/>} />
+          <Route path="/relatorios" element={<Reports/>} />
         </Routes>
       </Layout>
     </Router>

@@ -1,7 +1,7 @@
 import React from "react";
 
-function Audiencia() {
+function Audience() {
   return <div>audiencia</div>;
 }
 
-export default Audiencia;
+export default Audience;

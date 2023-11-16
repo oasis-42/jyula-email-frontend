@@ -20,7 +20,7 @@ function ToolBarLayout() {
     { label: "Relatórios", icon: <AssessmentIcon />, to: "/relatorios" },
   ];
   return (
-    <Box sx={{ height: "100vh" }}>
+    <Box sx={{ height: "100vh", boxShadow: "5px 0px 10px rgba(0, 0, 0, 0.1)" }}>
       <Stack sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100%" }}>
         <Stack>
           {buttonsDataFirst.map((button, index) => (
@@ -39,13 +39,13 @@ function ToolBarLayout() {
                   transition: "color 0.3s ease",
                   boxShadow: "none !important",
                   padding: "15px 0px 15px 15px",
-                  width: "100%", // Adicionado para ocupar a largura total
+                  width: "100%",
 
                   "&:hover": {
                     backgroundColor: "#ECECEC",
-                    color: "#000",
+                    color: "#2d3c42",
                     "& svg": {
-                      color: "#000",
+                      color: "#2d3c42",
                     },
                   },
                 }}>
@@ -73,13 +73,13 @@ function ToolBarLayout() {
                   transition: "color 0.3s ease",
                   boxShadow: "none !important",
                   paddingTop: "15px",
-                  width: "100%", // Adicionado para ocupar a largura total
+                  width: "100%",
 
                   "&:hover": {
                     backgroundColor: "#ECECEC",
-                    color: "#000",
+                    color: "#2d3c42",
                     "& svg": {
-                      color: "#000",
+                      color: "#2d3c42",
                     },
                   },
                 }}>
@@ -92,7 +92,7 @@ function ToolBarLayout() {
           ))}
         </Stack>
         <Box sx={{ display: "flex", justifyContent: "center" }}>
-          <img src={logo} alt="Logo do Site" style={{ width: "70%" }} />
+          <img src={logo} alt="Logo do Site" style={{ width: "70%", paddingBottom: "10px" }} />
         </Box>
       </Stack>
     </Box>

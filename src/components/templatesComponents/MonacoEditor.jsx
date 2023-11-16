@@ -1,22 +1,30 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Box } from "@mui/material";
 import * as monaco from "monaco-editor";
+import "../../styles/monaco.css";
 
-function MonacoEditor() {
+function MonacoEditor({ onUserCodeChange }) {
+  const [userCode, setUserCode] = useState('console.log("Hello, Monaco Editor!");');
+
   useEffect(() => {
     const editor = monaco.editor.create(document.getElementById("editor"), {
-      value: 'console.log("Hello, Monaco Editor!");',
+      workerSrc: "node_modules/monaco-editor/min/vs/base/worker/workerMain.js",
       language: "javascript",
       wordWrap: "on",
       minimap: {
         enabled: false,
       },
+      theme: "light",
     });
-    //eslint-disable-next-line
-    const onChangeHandler = (event) => {
-      const userCode = editor.getValue();
-      // Faça algo com o código do usuário em tempo real, como renderizar a saída ao lado.
-      console.log(userCode);
+
+    editor.setValue(userCode); // Defina o valor usando setValue
+
+    const onChangeHandler = () => {
+      const newUserCode = editor.getValue();
+      setUserCode(newUserCode);
+      if (onUserCodeChange) {
+        onUserCodeChange(newUserCode);
+      }
     };
 
     const disposable = editor.onDidChangeModelContent(onChangeHandler);
@@ -26,10 +34,10 @@ function MonacoEditor() {
       disposable.dispose();
       editor.dispose();
     };
-  }, []);
+  }, [userCode, onUserCodeChange]);
 
   return (
-    <Box sx={{ margin: 0, padding: 0, height: "100%", width: "50%" }}>
+    <Box sx={{ margin: 0, padding: 0, height: "100%", width: "50%", overflow: "hidden" }}>
       <div id="editor" style={{ height: "100%" }}></div>
     </Box>
   );

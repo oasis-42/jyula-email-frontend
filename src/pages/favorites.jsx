@@ -1,7 +1,7 @@
 import React from "react";
 
-function Favoritos() {
+function Favorites() {
   return <div>favoritos</div>;
 }
 
-export default Favoritos;
+export default Favorites;

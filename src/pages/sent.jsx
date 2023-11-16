@@ -1,7 +1,7 @@
 import React from "react";
 
-function Enviados() {
+function Sent() {
   return <div>enviados</div>;
 }
 
-export default Enviados;
+export default Sent;

@@ -1,7 +1,7 @@
 import React from "react";
 
-function CriarCampanha() {
+function CreateCampaign() {
   return <div>criar campanha</div>;
 }
 
-export default CriarCampanha;
+export default CreateCampaign;

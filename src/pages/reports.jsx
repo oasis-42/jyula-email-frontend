@@ -1,7 +1,7 @@
 import React from "react";
 
-function Relatorios() {
+function Reports() {
   return <div>relatorios</div>;
 }
 
-export default Relatorios;
+export default Reports;

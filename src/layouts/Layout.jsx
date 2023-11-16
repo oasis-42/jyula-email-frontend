@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import { Grid } from "@mui/material";
 import ToolBarLayout from "./ToolBarLayout";
 
@@ -15,7 +14,3 @@ export default function Layout({ children }) {
     </Grid>
   );
 }
-
-Layout.propTypes = {
-  children: PropTypes.node,
-};
