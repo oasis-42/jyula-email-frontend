@@ -20,8 +20,7 @@ function ToolBarLayout() {
     { label: "Relatórios", icon: <AssessmentIcon />, to: "/relatorios" },
   ];
   return (
-    <Box
-      sx={{ height: "100vh", boxShadow: "5px 0px 10px rgba(0, 0, 0, 0.1)", backgroundColor: "white", width: "200px" }}>
+    <Box sx={{ height: "100vh", boxShadow: "5px 0px 10px rgba(0, 0, 0, 0.1)" }}>
       <Stack sx={{ display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100%" }}>
         <Stack>
           {buttonsDataFirst.map((button, index) => (

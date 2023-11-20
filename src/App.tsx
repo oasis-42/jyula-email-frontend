@@ -1,3 +1,4 @@
+
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Layout from "./layouts/Layout";
 import CreateTemplates from "./pages/createTemplates";
@@ -8,24 +9,20 @@ import Sent from "./pages/sent";
 import Favorites from "./pages/favorites";
 import Reports from "./pages/reports";
 
-const App = () => {
-
-
+export default function App() {
   return (
     <Router>
-      <Layout >
+      <Layout>
         <Routes>
-          <Route path="/criar-campanha" element={<CreateCampaign />} />
-          <Route path="/criar-templates" element={<CreateTemplates />} />
-          <Route path="/segmentos" element={<Segments />} />
-          <Route path="/audiencia" element={<Audience />} />
-          <Route path="/enviados" element={<Sent />} />
-          <Route path="/favoritos" element={<Favorites />} />
-          <Route path="/relatorios" element={<Reports />} />
+          <Route path="/criar-campanha" element={<CreateCampaign/>} />
+          <Route path="/criar-templates" element={<CreateTemplates/>} />
+          <Route path="/segmentos" element={<Segments/>} />
+          <Route path="/audiencia" element={<Audience/>} />
+          <Route path="/enviados" element={<Sent/>} />
+          <Route path="/favoritos" element={<Favorites/>} />
+          <Route path="/relatorios" element={<Reports/>} />
         </Routes>
       </Layout>
     </Router>
   );
 }
-
-export default App;
