@@ -1,44 +1,55 @@
-import { useEffect, useState } from "react";
-import { Box } from "@mui/material";
-import * as monaco from "monaco-editor";
-import "../../styles/monaco.css";
+import React, { useState } from "react";
+import Editor from "@monaco-editor/react";
+import { Box, Typography } from "@mui/material";
 
-function MonacoEditor({ onUserCodeChange }) {
-  const [userCode, setUserCode] = useState('console.log("Hello, Monaco Editor!");');
+function MonacoEditor() {
+  const [code, setCode] = useState("<!-- Digite aqui -->");
 
-  useEffect(() => {
-    const editor = monaco.editor.create(document.getElementById("editor"), {
-      workerSrc: "node_modules/monaco-editor/min/vs/base/worker/workerMain.js",
-      language: "javascript",
-      wordWrap: "on",
-      minimap: {
-        enabled: false,
-      },
-      theme: "light",
-    });
+  const editorOptions = {
+    fontSize: 14,
+    wordWrap: "on",
+    padding: { top: 0, bottom: 0 },
+    minimap: {
+      enabled: false,
+    },
+    language: ["html", "freemarker2"],
+  };
 
-    editor.setValue(userCode); // Defina o valor usando setValue
-
-    const onChangeHandler = () => {
-      const newUserCode = editor.getValue();
-      setUserCode(newUserCode);
-      if (onUserCodeChange) {
-        onUserCodeChange(newUserCode);
-      }
-    };
-
-    const disposable = editor.onDidChangeModelContent(onChangeHandler);
-
-    // Cleanup: Destruir o editor e remover o listener quando o componente for desmontado
-    return () => {
-      disposable.dispose();
-      editor.dispose();
-    };
-  }, [userCode, onUserCodeChange]);
+  const visualizationEditor = {
+    display: "flex",
+    flexDirection: "column",
+    flex: 1,
+  };
+  const visualizationStyle = {
+    whiteSpace: "pre-wrap",
+    overflowWrap: "break-word",
+    height: "72vh",
+    display: "flex",
+    flexDirection: "column",
+    overflowY: "auto",
+    flex: 1,
+  };
 
   return (
-    <Box sx={{ margin: 0, padding: 0, height: "100%", width: "50%", overflow: "hidden" }}>
-      <div id="editor" style={{ height: "100%" }}></div>
+    <Box sx={{ display: "flex", flexDirection: "row", border: "1px solid #e0e0e0", borderRadius: "5px" }}>
+      <Box sx={visualizationEditor}>
+        <Typography variant="body1" sx={{ margin: "5px 0px 0px 5px" }}>
+          HTML
+        </Typography>
+        <Editor
+          defaultLanguage="html"
+          defaultValue={code}
+          onChange={(value) => setCode(value)}
+          options={editorOptions}
+        />
+      </Box>
+
+      <Box style={visualizationStyle}>
+        <Typography variant="body1" sx={{ margin: "5px 0px 0px 5px" }}>
+          Visualização
+        </Typography>
+        <div sx={visualizationStyle} dangerouslySetInnerHTML={{ __html: code }} />
+      </Box>
     </Box>
   );
 }

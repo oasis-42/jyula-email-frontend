@@ -22,23 +22,23 @@ const SearchBarLayout = () => {
   };
 
   const routeToText = {
-    "/criar-campanha": "Criar campanha",
-    "/criar-templates": "Templates",
-    "/segmentos": "Segmentos",
-    "/audiencia": "Audiência",
-    "/enviados": "Enviados",
-    "/favoritos": "Favoritos",
-    "/relatorios": "Relatórios",
+    "/app/criar-campanha": "Criar campanha",
+    "/app/criar-templates": "Templates",
+    "/app/segmentos": "Segmentos",
+    "/app/audiencia": "Audiência",
+    "/app/enviados": "Enviados",
+    "/app/favoritos": "Favoritos",
+    "/app/relatorios": "Relatórios",
   };
 
   const SearchText = {
-    "/criar-campanha": "campanhas",
-    "/criar-templates": "templates",
-    "/segmentos": "segmentos",
-    "/audiencia": "audiência",
-    "/enviados": "enviados",
-    "/favoritos": "favoritos",
-    "/relatorios": "relatórios",
+    "/app/criar-campanha": "campanhas",
+    "/app/criar-templates": "templates",
+    "/app/segmentos": "segmentos",
+    "/app/audiencia": "audiência",
+    "/app/enviados": "enviados",
+    "/app/favoritos": "favoritos",
+    "/app/relatorios": "relatórios",
   };
 
   return (
@@ -55,10 +55,9 @@ const SearchBarLayout = () => {
         fullWidth
         sx={{
           backgroundColor: "white",
+          alignItems: "center",
           width: "60%",
-          "& .MuiInputBase-input": {
-            padding: "0px",
-          },
+          "& label": { fontSize: "14px", transform: "translate(14px, 13px) scale(1)" },
         }}
         value={searchTerm}
         label={isPlaceholderVisible ? `Pesquisar ${SearchText[currentPage]}` : ""}
