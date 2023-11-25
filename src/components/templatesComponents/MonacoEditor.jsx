@@ -19,6 +19,7 @@ function MonacoEditor({ code, onCodeChange }) {
     border: "1px solid #e0e0e0",
     borderRadius: "5px",
     height: "72vh",
+    maxWidth: "1094px",
   };
 
   const visualizationEditorStyle = {

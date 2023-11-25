@@ -6,6 +6,7 @@ import Alert from "@mui/material/Alert";
 import axios from "axios";
 
 function CreateTemplates() {
+  const [name, setName] = useState("");
   const [subject, setSubject] = useState("");
   const [code, setCode] = useState(ExampleTemplate());
   const [apiError, setApiError] = useState(false);
@@ -14,7 +15,7 @@ function CreateTemplates() {
 
   const handleSaveTemplate = async () => {
     // Verificar se ambos os campos têm conteúdo
-    if (!subject.trim() || !code.trim()) {
+    if (!subject.trim() || !name.trim() || !code.trim()) {
       setEmptyFieldsError(true);
       setApiError(false);
       setSuccess(false);
@@ -23,7 +24,8 @@ function CreateTemplates() {
 
     // Simular uma requisição bem-sucedida (substitua isso com sua lógica de API real)
     try {
-      const response = await axios.post("/api/saveTemplate", {
+      const response = await axios.post("/api/v1/templates", {
+        name,
         subject,
         code,
       });
@@ -50,9 +52,23 @@ function CreateTemplates() {
 
   return (
     <>
-      <Box sx={{ display: "flex", alignItems: "center" }}>
+      <Box sx={{ display: "flex", alignItems: "center", flexDirection: "column" }}>
         <TextField
-          sx={{ width: "100%", height: "30px", margin: "14px 0px" }}
+          sx={{ width: "100%", height: "30px" }}
+          variant="standard"
+          size="small"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <Typography sx={{ fontWeight: "bold", color: "#2D3C42" }}>Nome:</Typography>
+              </InputAdornment>
+            ),
+          }}
+        />
+        <TextField
+          sx={{ width: "100%", height: "30px", margin: "5px 0px 10px 0px" }}
           variant="standard"
           size="small"
           value={subject}
@@ -67,7 +83,7 @@ function CreateTemplates() {
         />
       </Box>
       <MonacoEditor code={code} onCodeChange={setCode} />
-      <Box sx={{ display: "flex", justifyContent: "flex-end", marginTop: "25px" }}>
+      <Box sx={{ display: "flex", justifyContent: "flex-end", marginTop: "10px" }}>
         <Button
           variant="contained"
           sx={{
@@ -76,28 +92,28 @@ function CreateTemplates() {
               backgroundColor: "#1D2C34",
             },
             textTransform: "capitalize",
-            width: "200px",
+            width: "150px",
           }}
           onClick={handleSaveTemplate}>
-          <Typography>Salvar template</Typography>
+          <Typography variant="body2">Salvar template</Typography>
         </Button>
-      </Box>
-      <Snackbar
-        open={emptyFieldsError || apiError || success}
-        autoHideDuration={6000}
-        onClose={handleAlertClose}
-        anchorOrigin={{ vertical: "top", horizontal: "right" }}>
-        <Alert
-          variant="filled"
+        <Snackbar
+          open={emptyFieldsError || apiError || success}
+          autoHideDuration={6000}
           onClose={handleAlertClose}
-          severity={emptyFieldsError ? "warning" : apiError ? "error" : "success"}>
-          {emptyFieldsError
-            ? "Preencha tanto o Assunto quanto o Código antes de salvar."
-            : apiError
-              ? "Erro ao salvar, tente novamente mais tarde"
-              : "Template salvo com sucesso!"}
-        </Alert>
-      </Snackbar>
+          anchorOrigin={{ vertical: "top", horizontal: "right" }}>
+          <Alert
+            variant="filled"
+            onClose={handleAlertClose}
+            severity={emptyFieldsError ? "warning" : apiError ? "error" : "success"}>
+            {emptyFieldsError
+              ? "Preencha todos os campos antes de salvar"
+              : apiError
+                ? "Erro ao salvar, tente novamente mais tarde"
+                : "Template salvo com sucesso!"}
+          </Alert>
+        </Snackbar>
+      </Box>
     </>
   );
 }
