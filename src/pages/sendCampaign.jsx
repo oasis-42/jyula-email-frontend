@@ -16,17 +16,76 @@ function SendCampaign({ templateName }) {
     const [campaignName, setCampaignName] = useState('');
     const [sentTo, setSendTo] = useState('');
     const [frequency, setFrequency] = useState('');
+    const [listContacts, setListContacts] = useState([]);
+    const [listSegments, setListSegments] = useState([]);
 
-    const [tab, setTab] = useState("1");
+    const [tab, setTab] = useState("Contacts");
 
     function handleSubmit(event) {
         event.preventDefault();
+
+        sendCampaign();
     }
 
     const handleChange = (event, newValue) => {
-        //setFrequency(event.value);
         setTab(newValue);
+
+        if (newValue == 'Contacts') {
+            getListContacts();
+        } else {
+            getListSegments();
+        }
     };
+
+    const getListContacts = async () => {
+        try {
+            const response = await fetch("http://localhost:8080/api/v1/contacts")
+                .then((response) => response.json())
+                .then((json) => setListContacts(json));
+        } catch (error) {
+            //tratar erros
+        }
+    }
+
+    const getListSegments = async () => {
+        try {
+            const response = await fetch("http://localhost:8080/api/v1/segments")
+                .then((response) => response.json())
+                .then((json) => setListSegments(json));
+        } catch (error) {
+            //tratar erros
+        }
+    }
+
+
+    const sendCampaign = async () => {
+        try {
+            const response = await fetch(" http://localhost:8080/api/v1/campaigns/send", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    campaignName: campaignName,
+                    templateId: "e16aea25-d771-4429-a037-f75aadf833b7",
+                    sendTo: {
+                        contacts: listContacts,
+                        segments: listSegments
+                    },
+                    schedule: {
+                        dateTime: "",
+                        cron: ""
+                    }
+                }),
+            });
+            if (response.status === 201) {
+                //
+            } else if (response.status === 401) {
+                // Tratar casos de erros
+            }
+        } catch (error) {
+            // Tratar casos de erros de rede
+        }
+    };
+
 
     return (
         <>
@@ -83,12 +142,16 @@ function SendCampaign({ templateName }) {
                                         onChange={handleChange}
                                         aria-label="lab API tabs example"
                                     >
-                                        <Tab label="Aldiências Selecionadas" value="1" />
-                                        <Tab label="Segmentações Selecionadas" value="2" />
+                                        <Tab label="Aldiências Selecionadas" value="Contacts" />
+                                        <Tab label="Segmentações Selecionadas" value="Segments" />
                                     </TabList>
                                 </Box>
-                                <TabPanel value="1">Aldiências Selecionadas</TabPanel>
-                                <TabPanel value="2">Segmentações Selecionadas</TabPanel>
+                                <TabPanel value="Contacts">
+                                    {/* {listContacts.map((item) => <Componente de lista />)} */}
+                                </TabPanel>
+                                <TabPanel value="Segments">
+                                    {/* {listSegments.map((item) => <Componente de lista />)} */}
+                                </TabPanel>
                             </TabContext>
                         </Box>
 
