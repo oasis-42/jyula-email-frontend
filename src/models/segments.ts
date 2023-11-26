@@ -3,7 +3,7 @@ import { z } from "zod";
 import { getPaginatedSchema } from "./pagination/paginationSchemas";
 import { contactSchema } from "./contacts";
 
-const baseUrl = process.env.BASE_URL || "http://localhost:8080";
+const baseUrl = "http://localhost:8080";
 
 export const segmentSchema = z.object({
   id: z.string().uuid(),

@@ -1,26 +1,44 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { getAllSegments } from "../models/segments";
+import Pagination from "../components/pagination/Pagination";
+import {CardList} from "../components/cardList/cardList";
 
 function Segments() {
+  const [segments, setSegments] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalItens, setTotalItens] = useState(1);
+  const [itemsPerPage] = useState(10);
 
-  const [listSegments, setListSegments] = useState([]);
+  useEffect(() => {
+    getAllSegments()
+      .then(value => setContacts(value.content))
+      .catch(err => console.log(err.message) /*handle error */);
+  }, []);
 
-  const getListContacts = async () => {
-    try {
-      const response = await fetch("http://localhost:8080/api/v1/segments")
-        .then((response) => response.json())
-        .then((json) => setListSegments(json));
-    } catch (error) {
-      //tratar erros
-    }
+
+  const fetchSegments = async (page = 1) => {
+    const response = await getAllSegments('', page - 1);
+    setSegments(response.data.content);
+    setTotalItens(response.data.totalElements);
   }
 
 
 
   return <div>
     segmentos
-    {/* //criar componente pra listar
-    {listSegments.map((item) => <Componente de lista />)} */}
-    </div>;
+
+    <CardList />
+
+
+    <div className="d-flex justify-content-end">
+      <Pagination
+        itemsPerPage={itemsPerPage}
+        totalItems={totalItens}
+        currentPage={currentPage}
+        onChangePage={(page) => fetchSegments(page)}
+      />
+    </div>
+  </div>;
 }
 
 export default Segments;
