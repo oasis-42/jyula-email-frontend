@@ -8,6 +8,7 @@ import Audience from "./pages/audiences";
 import Sent from "./pages/sent";
 import Favorites from "./pages/favorites";
 import Reports from "./pages/reports";
+import SendCampaign from './pages/sendCampaign';
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
       <Layout>
         <Routes>
           <Route path="/criar-campanha" element={<CreateCampaign/>} />
+          <Route path="/criar-campanha/enviar-campanha" element={<SendCampaign/>} />
           <Route path="/criar-templates" element={<CreateTemplates/>} />
           <Route path="/segmentos" element={<Segments/>} />
           <Route path="/audiencia" element={<Audience/>} />
