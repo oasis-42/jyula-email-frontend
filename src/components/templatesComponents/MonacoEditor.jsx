@@ -1,44 +1,98 @@
-import { useEffect, useState } from "react";
-import { Box } from "@mui/material";
-import * as monaco from "monaco-editor";
-import "../../styles/monaco.css";
+import Editor from "@monaco-editor/react";
+import { Box, Typography } from "@mui/material";
 
-function MonacoEditor({ onUserCodeChange }) {
-  const [userCode, setUserCode] = useState('console.log("Hello, Monaco Editor!");');
+function MonacoEditor({ code, onCodeChange }) {
+  const editorOptions = {
+    fontSize: 14,
+    wordWrap: "on",
+    minimap: {
+      enabled: false,
+    },
+    language: ["html", "freemarker2"],
+    lineDecorationsWidth: "5px",
+  };
 
-  useEffect(() => {
-    const editor = monaco.editor.create(document.getElementById("editor"), {
-      workerSrc: "node_modules/monaco-editor/min/vs/base/worker/workerMain.js",
-      language: "javascript",
-      wordWrap: "on",
-      minimap: {
-        enabled: false,
-      },
-      theme: "light",
-    });
+  const containerStyle = {
+    display: "flex",
+    flexDirection: "row",
+    border: "1px solid #e0e0e0",
+    borderRadius: "5px",
+    height: "72vh",
+    maxWidth: "1094px",
+  };
 
-    editor.setValue(userCode); // Defina o valor usando setValue
+  const visualizationEditorStyle = {
+    display: "flex",
+    flexDirection: "column",
+    flex: 1,
+    maxWidth: "545px",
+  };
 
-    const onChangeHandler = () => {
-      const newUserCode = editor.getValue();
-      setUserCode(newUserCode);
-      if (onUserCodeChange) {
-        onUserCodeChange(newUserCode);
-      }
-    };
+  const visualizationStyle = {
+    overflowY: "auto",
+    overflowX: "auto",
+    width: "100%",
+    maxWidth: "545px",
+    backgroundColor: "#fff",
+    flex: 1,
+    display: "flex",
+    flexDirection: "column",
+    "&::-webkit-scrollbar": {
+      width: "13px",
+      height: "13px",
+    },
+    "&::-webkit-scrollbar-track": {
+      backgroundColor: "#fff",
+      borderLeft: "0.1px solid #c3c3c2",
+    },
+    "&::-webkit-scrollbar-track-piece": {
+      borderTop: "1px solid #c3c3c2",
+    },
+    "&::-webkit-scrollbar-thumb": {
+      backgroundColor: "#c3c3c2",
+      borderRadius: "0px",
+    },
+    "&::-webkit-scrollbar-thumb:hover": {
+      backgroundColor: "#929292",
+    },
+  };
 
-    const disposable = editor.onDidChangeModelContent(onChangeHandler);
-
-    // Cleanup: Destruir o editor e remover o listener quando o componente for desmontado
-    return () => {
-      disposable.dispose();
-      editor.dispose();
-    };
-  }, [userCode, onUserCodeChange]);
+  const handleEditorChange = (value) => {
+    if (onCodeChange) {
+      onCodeChange(value);
+    }
+  };
 
   return (
-    <Box sx={{ margin: 0, padding: 0, height: "100%", width: "50%", overflow: "hidden" }}>
-      <div id="editor" style={{ height: "100%" }}></div>
+    <Box sx={containerStyle}>
+      <Box sx={visualizationEditorStyle}>
+        <Typography variant="body2" sx={{ margin: "5px 0px 5px 10px", fontWeight: "bold", color: "#2D3C42" }}>
+          HTML
+        </Typography>
+        <Editor
+          defaultLanguage="html"
+          defaultValue={code}
+          onChange={(value) => handleEditorChange(value)}
+          options={editorOptions}
+        />
+      </Box>
+      <Box sx={{ flex: 1, display: "flex", flexDirection: "column" }}>
+        <Box sx={{ boxShadow: "0px 2px 2px rgba(0, 0, 0, 0.08)", position: "sticky", top: 0 }}>
+          <Typography
+            variant="body2"
+            sx={{
+              margin: "5px 0px 5px 10px",
+              fontWeight: "bold",
+              color: "#2D3C42",
+              backgroundColor: "white",
+            }}>
+            Visualização
+          </Typography>
+        </Box>
+        <Box sx={visualizationStyle}>
+          <div dangerouslySetInnerHTML={{ __html: code }} />
+        </Box>
+      </Box>
     </Box>
   );
 }

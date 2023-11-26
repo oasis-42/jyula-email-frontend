@@ -1,13 +1,18 @@
 import { Box } from "@mui/system";
-import ToolBarLayout from "./layoutsComponents/LayoutToolBar";
+import LayoutToolBar from "./layoutsComponents/LayoutToolBar";
+import LayoutSearchBar from "./layoutsComponents/LayoutSearchBar";
 
-export default function Layout({ children }) {
+export default function DefaultLayout({ children }) {
   return (
     <Box style={{ display: "flex", backgroundColor: "#F4F4F7" }}>
       <Box sx={{ backgroundColor: "#ffffff" }}>
-        <ToolBarLayout />
+        <LayoutToolBar />
       </Box>
-      <Box sx={{ display: "flex", flexDirection: "column", flexGrow: 1, margin: "11px 15px 15px 15px" }}>
+      <Box sx={{ display: "flex", flexDirection: "column", flexGrow: 1, margin: "0px 15px 15px 15px" }}>
+        <Box sx={{ display: "flex", justifyContent: "flex-end", margin: "5px 0px" }}>
+          <LayoutSearchBar />
+        </Box>
+
         <Box
           sx={{
             backgroundColor: "white",
@@ -19,6 +24,9 @@ export default function Layout({ children }) {
             "&:hover": {
               border: "1px solid #797979",
             },
+            maxHeight: "860px",
+            overflowY: "auto",
+            overflowX: "auto",
           }}>
           {children}
         </Box>
