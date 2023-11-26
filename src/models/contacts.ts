@@ -24,7 +24,7 @@ const createOrUpdateContactSchema = contactSchema.omit({ id: true });
 
 type CreateOrUpdateContactDTO = z.infer<typeof contactSchema>;
 
-export async function createContact(dto: CreateOrUpdateContactDTO) {
+export async function createContact(dto: CreateOrUpdateContactDTO): Promise<Contact> {
   createOrUpdateContactSchema.parse(dto);
 
   const res = await fetch(`${baseUrl}/api/v1/contacts`, {
@@ -38,6 +38,12 @@ export async function createContact(dto: CreateOrUpdateContactDTO) {
   if (res.status === 401) {
     throw new Error();
   }
+
+  const content = res.json();
+
+  contactSchema.parse(content);
+
+  return content;
 }
 
 export async function deleteContact(id: string) {
@@ -55,7 +61,7 @@ export async function deleteContact(id: string) {
   }
 }
 
-export async function getContactById(id: string) {
+export async function getContactById(id: string): Promise<Contact> {
   z.string().uuid().parse(id);
 
   const res = await fetch(`${baseUrl}/api/v1/contacts${id}`, {
@@ -76,7 +82,7 @@ export async function getContactById(id: string) {
   return content;
 }
 
-export async function updateContact(id: string, dto: CreateOrUpdateContactDTO) {
+export async function updateContact(id: string, dto: CreateOrUpdateContactDTO): Promise<Contact> {
   z.string().uuid().parse(id);
   createOrUpdateContactSchema.parse(dto);
 
