@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate, Outlet } from 'react-
 import DefaultLayout from "./layouts/DefaultLayout";
 import ToolBarLayout from "./layouts/ToolBarLayout";
 import CreateTemplates from "./pages/createTemplates";
+import SendCampaign from './pages/sendCampaign';
 import CreateCampaign from "./pages/createCampaign";
 import Segments from "./pages/segments";
 import Audience from "./pages/audiences";
@@ -47,7 +48,7 @@ export default function App() {
             )
           }
         >
-          <Route index element={<CreateCampaign />} />
+          <Route path="criar-campanha" element={<CreateCampaign />} />
           <Route path="segmentos" element={<Segments />} />
           <Route path="audiencia" element={<Audience />} />
           <Route path="enviados" element={<Sent />} />
@@ -56,19 +57,20 @@ export default function App() {
         </Route>
 
         <Route
-          path="/app/criar-templates"
-          element={
-            isAuthenticated ? (
-              <ToolBarLayout>
-                <Outlet />
-              </ToolBarLayout>
-            ) : (
-              <Navigate to="/login" />
-            )
-          }
-        >
-          <Route index element={<CreateTemplates />} />
-        </Route>
+  path="/app/*"
+  element={
+    isAuthenticated ? (
+      <ToolBarLayout>
+        <Outlet />
+      </ToolBarLayout>
+    ) : (
+      <Navigate to="/login" />
+    )
+  }
+>
+  <Route index element={<CreateTemplates />} />
+  <Route path="enviar-campanha" element={<SendCampaign />} />
+</Route>
       </Routes>
     </Router>
   );

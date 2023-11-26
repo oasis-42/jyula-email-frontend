@@ -62,7 +62,7 @@ function CreateTemplates() {
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <Typography sx={{ fontWeight: "bold", color: "#2D3C42" }}>Nome:</Typography>
+                <Typography sx={{ color: "#2D3C42" }}>Nome:</Typography>
               </InputAdornment>
             ),
           }}
@@ -76,7 +76,7 @@ function CreateTemplates() {
           InputProps={{
             startAdornment: (
               <InputAdornment position="start">
-                <Typography sx={{ fontWeight: "bold", color: "#2D3C42" }}>Assunto:</Typography>
+                <Typography sx={{ color: "#2D3C42" }}>Assunto:</Typography>
               </InputAdornment>
             ),
           }}

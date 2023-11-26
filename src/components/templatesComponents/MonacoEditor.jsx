@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import Editor from "@monaco-editor/react";
 import { Box, Typography } from "@mui/material";
 
@@ -57,14 +56,6 @@ function MonacoEditor({ code, onCodeChange }) {
       backgroundColor: "#929292",
     },
   };
-
-  useEffect(() => {
-    const emmetModule = import("emmet-monaco-es");
-
-    emmetModule.then((emmet) => {
-      emmet.setup(window.monaco);
-    });
-  }, []);
 
   const handleEditorChange = (value) => {
     if (onCodeChange) {
