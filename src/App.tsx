@@ -68,7 +68,7 @@ export default function App() {
     )
   }
 >
-  <Route index element={<CreateTemplates />} />
+  <Route path="criar-templates" element={<CreateTemplates />} />
   <Route path="enviar-campanha" element={<SendCampaign />} />
 </Route>
       </Routes>
