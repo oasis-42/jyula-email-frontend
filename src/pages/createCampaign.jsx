@@ -42,13 +42,15 @@ function CreateCampaign() {
 
   return (
     <Box sx={{ width: "100%" }}>
-      <Button
-        onClick={handleShowAllClick}
-        sx={{ fontWeight: "bold", color: "#2D3C42", textTransform: "none", marginRight: "15px" }}>
-        Todos os templates
+      <Button onClick={handleShowAllClick} sx={{ marginRight: "15px" }}>
+        <Typography sx={{ fontWeight: "bold", color: "#2D3C42", textTransform: "none", marginBottom: "10px" }}>
+          Todos os templates
+        </Typography>
       </Button>
-      <Button onClick={handleShowFavoritesClick} sx={{ fontWeight: "bold", color: "#2D3C42", textTransform: "none" }}>
-        Templates Favoritos
+      <Button onClick={handleShowFavoritesClick}>
+        <Typography sx={{ fontWeight: "bold", color: "#2D3C42", textTransform: "none", marginBottom: "10px" }}>
+          Templates Favoritos
+        </Typography>
       </Button>
       <Divider sx={{ marginBottom: "10px", backgroundColor: "#2D3C42" }} />
 
