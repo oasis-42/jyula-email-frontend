@@ -4,51 +4,67 @@ import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function CreateCampaign() {
+function SelectTemplate() {
   const initialTemplateList = [
-    { id: 1, name: "Template 1", favorited: false },
-    { id: 2, name: "Template 2", favorited: true },
+    { id: 1, name: "Template 1", content: "content", isFavorite: false, subject: "Assunto 1" },
+    { id: 2, name: "Template 2", isFavorite: true, subject: "Assunto 2" },
   ];
 
   const [templateList, setTemplateList] = useState(initialTemplateList);
   const [showFavorites, setShowFavorites] = useState(false);
+  const [activeButton, setActiveButton] = useState("all");
 
   const navigate = useNavigate();
 
-  const handleCardClick = (templateId) => {
-    // Implemente a lógica para a ação ao clicar no card aqui
+  const handleCardClick = (templateId, name, code, subject) => {
     console.log(`Card clicado: ${templateId}`);
-    navigate("/app/enviar-campanha");
+    navigate("/app/visualizar-template", { state: { templateId, name, code, subject } });
   };
 
   const handleFavoriteClick = (templateId) => {
     // Atualize o estado para refletir a mudança de favorito
     setTemplateList((prevTemplates) =>
       prevTemplates.map((template) =>
-        template.id === templateId ? { ...template, favorited: !template.favorited } : template,
+        template.id === templateId ? { ...template, isFavorite: !template.isFavorite } : template,
       ),
     );
   };
 
   const handleShowAllClick = () => {
     setShowFavorites(false);
+    setActiveButton("all");
   };
 
   const handleShowFavoritesClick = () => {
     setShowFavorites(true);
+    setActiveButton("favorites");
   };
 
-  const filteredTemplates = showFavorites ? templateList.filter((template) => template.favorited) : templateList;
+  const filteredTemplates = showFavorites ? templateList.filter((template) => template.isFavorite) : templateList;
 
   return (
     <Box sx={{ width: "100%" }}>
       <Button onClick={handleShowAllClick} sx={{ marginRight: "15px" }}>
-        <Typography sx={{ fontWeight: "bold", color: "#2D3C42", textTransform: "none", marginBottom: "10px" }}>
+        <Typography
+          variant="body2"
+          sx={{
+            fontWeight: activeButton === "all" ? "bold" : "normal",
+            color: "#2D3C42",
+            textTransform: "none",
+            marginBottom: "10px",
+          }}>
           Todos os templates
         </Typography>
       </Button>
       <Button onClick={handleShowFavoritesClick}>
-        <Typography sx={{ fontWeight: "bold", color: "#2D3C42", textTransform: "none", marginBottom: "10px" }}>
+        <Typography
+          variant="body2"
+          sx={{
+            fontWeight: activeButton === "favorites" ? "bold" : "normal",
+            color: "#2D3C42",
+            textTransform: "none",
+            marginBottom: "10px",
+          }}>
           Templates Favoritos
         </Typography>
       </Button>
@@ -70,7 +86,7 @@ function CreateCampaign() {
             marginBottom: "5px",
           }}>
           <Button
-            onClick={() => handleCardClick(template.id)}
+            onClick={() => handleCardClick(template.id, template.name, template.code, template.subject)}
             sx={{
               textDecoration: "none",
               color: "inherit",
@@ -110,7 +126,7 @@ function CreateCampaign() {
                 backgroundColor: "transparent",
               },
             }}>
-            {template.favorited ? (
+            {template.isFavorite ? (
               <StarIcon sx={{ color: "#2D3C42" }} />
             ) : (
               <StarBorderOutlinedIcon sx={{ color: "#2D3C42" }} />
@@ -122,4 +138,4 @@ function CreateCampaign() {
   );
 }
 
-export default CreateCampaign;
+export default SelectTemplate;

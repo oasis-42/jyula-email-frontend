@@ -24,7 +24,7 @@ export default function DefaultLayout({ children }) {
             "&:hover": {
               border: "1px solid #797979",
             },
-            maxHeight: "860px",
+            maxHeight: "85vh",
             overflowY: "auto",
             overflowX: "auto",
           }}>

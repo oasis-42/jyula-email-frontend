@@ -2,13 +2,14 @@ import { BrowserRouter as Router, Route, Routes, Navigate, Outlet } from 'react-
 import DefaultLayout from "./layouts/DefaultLayout";
 import ToolBarLayout from "./layouts/ToolBarLayout";
 import CreateTemplates from "./pages/createTemplates";
-import SendCampaign from './pages/sendCampaign';
-import CreateCampaign from "./pages/createCampaign";
+import ViewerMonacoTemplate from './pages/viewerTemplate';
+import SelectTemplate from "./pages/selectTemplate";
 import Segments from "./pages/segments";
 import Audience from "./pages/audiences";
 import Sent from "./pages/sent";
 import Favorites from "./pages/favorites";
 import Reports from "./pages/reports";
+import CreateCampaign from "./pages/createCampaign";
 import Login from "./pages/login";
 import Register from "./pages/register";
 import { useState } from 'react';
@@ -28,7 +29,7 @@ export default function App() {
           path="/"
           element={
             isAuthenticated ? (
-              <Navigate to="/app/criar-campanha" />
+              <Navigate to="/app/selecionar-template" />
             ) : (
               <Navigate to="/login" />
             )
@@ -48,7 +49,7 @@ export default function App() {
             )
           }
         >
-          <Route path="criar-campanha" element={<CreateCampaign />} />
+          <Route path="selecionar-template" element={<SelectTemplate />} />
           <Route path="segmentos" element={<Segments />} />
           <Route path="audiencia" element={<Audience />} />
           <Route path="enviados" element={<Sent />} />
@@ -69,7 +70,8 @@ export default function App() {
   }
 >
   <Route path="criar-templates" element={<CreateTemplates />} />
-  <Route path="enviar-campanha" element={<SendCampaign />} />
+  <Route path="visualizar-template" element={<ViewerMonacoTemplate />} />
+  <Route path="criar-campanha" element={<CreateCampaign />} />
 </Route>
       </Routes>
     </Router>

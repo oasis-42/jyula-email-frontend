@@ -1,28 +1,28 @@
-import { useState } from "react";
+// import { useState } from "react";
 import { useLocation } from "react-router-dom";
-import { TextField, InputAdornment, Box, Typography } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
+import { Box, Typography } from "@mui/material";
+//TextField, InputAdornment,
+// import SearchIcon from "@mui/icons-material/Search";
 
-// props=onSearch
 const SearchBarLayout = () => {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [isPlaceholderVisible, setPlaceholderVisibility] = useState(true);
+  //   const [searchTerm, setSearchTerm] = useState("");
+  //   const [isPlaceholderVisible, setPlaceholderVisibility] = useState(true);
 
   const location = useLocation();
   const currentPage = location.pathname;
 
-  const handleFocus = () => {
-    setPlaceholderVisibility(false);
-  };
+  // const handleFocus = () => {
+  //   setPlaceholderVisibility(false);
+  // };
 
-  const handleBlur = () => {
-    if (searchTerm === "") {
-      setPlaceholderVisibility(true);
-    }
-  };
+  // const handleBlur = () => {
+  //   if (searchTerm === "") {
+  //     setPlaceholderVisibility(true);
+  //   }
+  // };
 
   const routeToText = {
-    "/app/criar-campanha": "Criar campanha",
+    "/app/selecionar-template": "Selecionar template",
     "/app/criar-templates": "Templates",
     "/app/segmentos": "Segmentos",
     "/app/audiencia": "Audiência",
@@ -31,24 +31,30 @@ const SearchBarLayout = () => {
     "/app/relatorios": "Relatórios",
   };
 
-  const SearchText = {
-    "/app/criar-campanha": "campanhas",
-    "/app/criar-templates": "templates",
-    "/app/segmentos": "segmentos",
-    "/app/audiencia": "audiência",
-    "/app/enviados": "enviados",
-    "/app/favoritos": "favoritos",
-    "/app/relatorios": "relatórios",
-  };
+  // const SearchText = {
+  //   "/app/selecionar-template": "templates",
+  //   "/app/segmentos": "segmentos",
+  //   "/app/audiencia": "audiência",
+  //   "/app/enviados": "enviados",
+  //   "/app/favoritos": "favoritos",
+  //   "/app/relatorios": "relatórios",
+  // };
 
   return (
     <>
-      <Box sx={{ display: "flex", justifyContent: "flex-start", alignItems: "flex-end", marginRight: "auto" }}>
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "flex-start",
+          alignItems: "flex-end",
+          marginRight: "auto",
+          marginTop: "20px",
+        }}>
         <Typography sx={{ fontWeight: "bold", marginLeft: "10px", color: "#2d3c42", fontSize: "22px" }}>
           {routeToText[currentPage] || ""}
         </Typography>
       </Box>
-      <TextField
+      {/* <TextField
         variant="outlined"
         type="text"
         margin="dense"
@@ -76,7 +82,7 @@ const SearchBarLayout = () => {
           shrink: searchTerm !== "" || !isPlaceholderVisible,
           sx: { marginLeft: "35px", fontSize: "14px" },
         }}
-      />
+      /> */}
     </>
   );
 };

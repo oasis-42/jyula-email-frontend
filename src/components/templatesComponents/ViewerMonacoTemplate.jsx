@@ -1,7 +1,7 @@
 import Editor from "@monaco-editor/react";
 import { Box, Typography } from "@mui/material";
 
-function MonacoEditor({ content, onContentChange }) {
+function ViwerMonacoTemplate({ content, onContentChange }) {
   const editorOptions = {
     fontSize: 14,
     wordWrap: "on",
@@ -60,6 +60,7 @@ function MonacoEditor({ content, onContentChange }) {
   };
 
   const handleEditorChange = (value) => {
+    console.log("Novo conteúdo do editor:", value);
     if (onContentChange) {
       onContentChange(value);
     }
@@ -99,4 +100,4 @@ function MonacoEditor({ content, onContentChange }) {
   );
 }
 
-export default MonacoEditor;
+export default ViwerMonacoTemplate;
