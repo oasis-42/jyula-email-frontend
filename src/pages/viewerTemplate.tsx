@@ -1,36 +1,44 @@
-import React, { useState } from "react";
-import MonacoEditor from "../components/templatesComponents/MonacoEditor";
+import React, { useState, useEffect } from "react";
+import ViwerMonacoTemplate from "../components/templatesComponents/ViewerMonacoTemplate";
 import { Box, Typography, TextField, InputAdornment, Button, Snackbar } from "@mui/material";
-import ExampleTemplate from "../components/templatesComponents/ExampleTemplate";
 import Alert from "@mui/material/Alert";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-function CreateTemplates() {
-  const [name, setName] = useState("");
+function ViewerMonacoTemplate() {
+  const [localName, setLocalName] = useState("");
   const [subject, setSubject] = useState("");
-  const [code, setCode] = useState(ExampleTemplate());
+  const [content, setContent] = useState("");
   const [apiError, setApiError] = useState(false);
   const [emptyFieldsError, setEmptyFieldsError] = useState(false);
   const [success, setSuccess] = useState(false);
 
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { state } = location;
+  const { content: routeContent, name: routeName, subject: routeSubject } = state || {};
+
+  useEffect(() => {
+    if (routeName) setLocalName(routeName);
+    if (routeContent) setContent(routeContent);
+    if (routeSubject) setSubject(routeSubject);
+  }, [routeName, routeContent, routeSubject]);
+
   const handleSaveTemplate = async () => {
-    // Verificar se ambos os campos têm conteúdo
-    if (!subject.trim() || !name.trim() || !code.trim()) {
+    // Verificar se todos os campos têm conteúdo
+    if (!subject.trim() || !localName.trim() || !content.trim()) {
       setEmptyFieldsError(true);
       setApiError(false);
       setSuccess(false);
       return;
     }
 
-    // Simular uma requisição bem-sucedida (substitua isso com sua lógica de API real)
     try {
       const response = await axios.post("/api/v1/templates", {
-        name,
-        subject,
-        code,
+        name: localName,
+        subject: subject,
+        content: content,
       });
-
-      // Aqui, após o sucesso da API, definimos o estado de sucesso como true
       setSuccess(true);
       setEmptyFieldsError(false);
       setApiError(false);
@@ -41,6 +49,7 @@ function CreateTemplates() {
       setApiError(true);
       setEmptyFieldsError(false);
       setSuccess(false);
+      navigate("/app/criar-campanha");
     }
   };
 
@@ -57,12 +66,13 @@ function CreateTemplates() {
           sx={{ width: "100%", height: "30px" }}
           variant="standard"
           size="small"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          value={localName}
+          onChange={(e) => setLocalName(e.target.value)}
           InputProps={{
+            disableUnderline: true,
             startAdornment: (
               <InputAdornment position="start">
-                <Typography sx={{ fontWeight: "bold", color: "#2D3C42" }}>Nome:</Typography>
+                <Typography sx={{ color: "#2D3C42", fontWeight: "bold" }}>Nome do template:</Typography>
               </InputAdornment>
             ),
           }}
@@ -74,16 +84,24 @@ function CreateTemplates() {
           value={subject}
           onChange={(e) => setSubject(e.target.value)}
           InputProps={{
+            disableUnderline: true,
             startAdornment: (
               <InputAdornment position="start">
-                <Typography sx={{ fontWeight: "bold", color: "#2D3C42" }}>Assunto:</Typography>
+                <Typography sx={{ color: "#2D3C42", fontWeight: "bold" }}>Assunto:</Typography>
               </InputAdornment>
             ),
           }}
         />
       </Box>
-      <MonacoEditor code={code} onCodeChange={setCode} />
-      <Box sx={{ display: "flex", justifyContent: "flex-end", marginTop: "10px" }}>
+
+      <ViwerMonacoTemplate content={content} onContentChange={setContent} />
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "flex-end",
+          marginTop: "10px",
+          width: "100%",
+        }}>
         <Button
           variant="contained"
           sx={{
@@ -92,10 +110,12 @@ function CreateTemplates() {
               backgroundColor: "#1D2C34",
             },
             textTransform: "capitalize",
-            width: "150px",
+            width: "200px",
           }}
           onClick={handleSaveTemplate}>
-          <Typography variant="body2">Salvar template</Typography>
+          <Typography variant="body2" sx={{ textTransform: "none" }}>
+            Salvar e usar template
+          </Typography>
         </Button>
         <Snackbar
           open={emptyFieldsError || apiError || success}
@@ -118,4 +138,4 @@ function CreateTemplates() {
   );
 }
 
-export default CreateTemplates;
+export default ViewerMonacoTemplate;

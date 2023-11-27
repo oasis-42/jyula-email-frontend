@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
 
 function ToolBarLayout() {
-  const buttonsDataFirst = [{ label: "Criar campanha", icon: <AddBoxIcon />, to: "/app/criar-campanha" }];
+  const buttonsDataFirst = [{ label: "Criar campanha", icon: <AddBoxIcon />, to: "/app/selecionar-template" }];
   const buttonsDataSecond = [
     { label: "Templates", icon: <EmailIcon />, to: "/app/criar-templates" },
     { label: "Segmentos", icon: <SegmentIcon />, to: "/app/segmentos" },
